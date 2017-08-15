@@ -3,19 +3,19 @@
   ".": 
 :production_host: hello
 :subnav_templates:
-  myservice: myservice_subnav
+  metrics-forwarder: metrics-forwarder_subnav
 :template_variables: 
-:local_repo_dir: "/Users/ljarzynski/workspace/docs-scheduler"
+:local_repo_dir: "/Users/slhommedieu/data/projects/docs-metrics-forwarder"
 :workspace: !ruby/object:Pathname
-  path: "/Users/ljarzynski/workspace/docs-scheduler/docs-book/output/master_middleman/source"
+  path: "/Users/slhommedieu/data/projects/docs-metrics-forwarder/docs-book/output/master_middleman/source"
 :feedback_enabled: 
 :repo_link_enabled: true
 :repo_links:
-  myservice:
+  metrics-forwarder:
     repo: docs-content
     ref: master
     at_path: 
 :product_info:
-  myservice: {}
+  metrics-forwarder: {}
 :elastic_search: false
 :proof: false

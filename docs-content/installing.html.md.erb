@@ -1,5 +1,5 @@
 ---
-title: Installing and Configuring Scheduler for PCF
+title: Installing and Configuring Metrics Forwarder for PCF
 owner: PCF Autoscaler and Scheduler
 ---
 
@@ -13,35 +13,25 @@ owner: PCF Autoscaler and Scheduler
     }
 </style>
 
-<p class="note warning">
-<strong>IMPORTANT: </strong> 
-The Scheduler for Pivotal Cloud Foundry (PCF) tile is currently in beta and is intended for evaluation and test purposes only. Do not use this product in a PCF production environment.
-</p>
-
-This topic describes how to install and configure Scheduler for Pivotal Cloud Foundry (PCF).
+This topic describes how to install and configure Metrics Forwarder for Pivotal Cloud Foundry (PCF).
 
 ##<a id='prereqs'></a> Prerequisites
 
-Before you install the tile, you need to have a MySQL for PCF service plan with the following configuration:
 
-* **Service Plan Name**: `1gb`
-* **Storage Quota**: `1000`
-* **Concurrent Connections Quota**: `40`
+##<a id='install'></a> Install and Configure Metrics Forwarder for PCF
 
-If you do not already have this plan, see [Add a Plan](https://docs.pivotal.io/p-mysql/index.html#service-plan) in the MySQL for PCF documentation. 
-
-##<a id='install'></a> Install and Configure Scheduler for PCF
-
-1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-scheduler-for-pcf).
+1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-metrics-forwarder).
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
 
-1. Under the **Import a Product** button, click **+** next to the version number of Scheduler for PCF. 
+1. Under the **Import a Product** button, click **+** next to the version number of Metrics Forwarder for PCF. 
 This adds the tile to your staging area.
 
-1. Click the newly added **Scheduler for PCF** tile.
+1. Click the newly added **Metrics Forwarder for PCF** tile.
 
 1. Make sure your network and stemcell configuration is complete.
+
+1. Create appropriate plans:
 
 1. Click **Save**.
 
