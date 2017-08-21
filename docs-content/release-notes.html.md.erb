@@ -20,16 +20,17 @@ The Metrics Forwarder for Pivotal Cloud Foundry (PCF) tile is currently in beta 
 
 This topic contains release notes for the Metrics Forwarder for Pivotal Cloud Foundry (PCF) tile.
 
-## v1.0.2
+## v1.0
 
-**Release Date:** August 14, 2017
+**Release Date:** August 21, 2017
 
 ### Features included in this release:
 
 * Custom App Metrics HTTP API
 * Metric Emission Rate Limiting
+* HA Metrics Forwarder API, configurable capacity
 
 ### Known issues in this release:
 
 * Service Broker is not HA
-* Rate limiting in an HA configuration (default) is succeptible to jitter (inaccuracy) due to load balancing.
+* Rate limiting in an HA configuration (default) is succeptible to jitter (inaccuracy) due to load balancing across API instances.

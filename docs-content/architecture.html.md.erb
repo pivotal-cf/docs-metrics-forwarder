@@ -5,6 +5,9 @@ owner: PCF Autoscaler and Scheduler
 ---
 
 
+***  Architecture Diagram goes here***
+
+
 This topic describes the high-level component architecture of the Metrics Forwarder for Pivotal Cloud Foundry (PCF) service. It describes the defaults configuration and other aspects of the service's components and how to manage them.
 
 ## <a id="topology"></a> HA Topology ##
@@ -15,13 +18,13 @@ In HA topology, the Metrics Forwarder for PCF service uses the following:
 
 * A Metric Forwarder Service Broker
 
-* 
-
-
+If operators wish to reduce the number of VMs used in the deployment the number of Metrics Forwarder API resources can be reduced to 1.
 
 ## <a id="rate-limiting"></a> Rate Limiting ##
 
-Rate Limiting allows operators to limit the number of requets that are accepted for each app by the metrics forwarder and to limit the number of metrics accepted.  Each limit, requests and metrics, is limited per minute.  Rate Limits are applied to each request received by the Metrics Forwarder API and are calculated on a moving 60 second window.  Rate Limits can be conveyed in the response of each request.  Each request contains the following Rate Limit feedback: 
+The Metrics Forwarder allows operators to configure Rate Limiting in order to provide a more reliable service level of Metrics Forwarder and to prevent applications from emitting to many metrics for the Loggregator configuration.
+
+Rate Limiting allows operators to limit the number of requets that are accepted for each app by the metrics forwarder and to limit the number of metrics accepted.  Each limit, requests and metrics, is limited on a per minute basis.  Rate Limits are applied to each request received by the Metrics Forwarder API and are calculated on a moving 60 second window.  Rate Limits can be conveyed in the response of each request.  Each request contains the following Rate Limit feedback as HTTP Headers: 
 
 ```
 x-ratelimit-limit 
@@ -36,9 +39,7 @@ x-ratelimit-retry-after
 
 This section describes the defaults that the Metrics Forwarder for PCF tile applies to plans and resource configuration.
 
-### Service Plans and Rate Limiting
 
-Service Plans enable an operator to configure the rate limiting settings that apply to metrics emitted to the Metrics Forwarder service.   By default a single service plan is configured with unlimited requests and metrics.
 
 ### API Instance Resource Config
 
@@ -51,5 +52,5 @@ Metrics Forwarder relies on Loggregator to transport metrics to the firehose.  T
 
 ### <a id="persitence"></a> Metrics Persistence
 
-Metrics that are emitted into the Metrics Forwarder api are not persisted in any way.  They are immediately transformed to a format acceptable to loggregator and then emitted.  To persist metrics that have been emitted into the Metrics Forwarder users can read the metrics directly from the firehose or use any nozzle to consume and persist loggregator data.
+Metrics that are emitted into the Metrics Forwarder API are not persisted in any way.  They are immediately transformed to a format acceptable to loggregator and then emitted.  To persist metrics that have been emitted into the Metrics Forwarder users can read the metrics directly from the firehose or use any nozzle to consume and persist loggregator data.
 
