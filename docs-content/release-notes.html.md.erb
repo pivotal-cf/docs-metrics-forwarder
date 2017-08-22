@@ -15,23 +15,22 @@ owner: PCF Autoscaler and Scheduler
 
 <p class="note warning">
 <strong>IMPORTANT: </strong> 
-The Scheduler for Pivotal Cloud Foundry (PCF) tile is currently in beta and is intended for evaluation and test purposes only. Do not use this product in a PCF production environment.
+The Metrics Forwarder for Pivotal Cloud Foundry (PCF) tile is currently in beta and is intended for evaluation and test purposes only. Do not use this product in a PCF production environment.
 </p>
 
-This topic contains release notes for the Scheduler for Pivotal Cloud Foundry (PCF) tile.
+This topic contains release notes for the Metrics Forwarder for Pivotal Cloud Foundry (PCF) tile.
 
-## v1.0.2
+## v1.0
 
-**Release Date:** April 19, 2017
+**Release Date:** August 21, 2017
 
 ### Features included in this release:
 
-* Create jobs.
-* Run jobs.
-* Schedule jobs.
-* List job history.
+* Custom App Metrics HTTP API
+* Metric Emission Rate Limiting
+* HA Metrics Forwarder API, configurable capacity
 
 ### Known issues in this release:
 
-* Operators must have a `p-mysql` service plan named `1gb` with at least 1000 MB of disk space.
-* Only a `standard` service plan exists that allows scheduling of as many tasks as needed and at any interval.
+* Service Broker is not HA
+* Rate limiting in an HA configuration (default) is succeptible to jitter (inaccuracy) due to load balancing across API instances.
