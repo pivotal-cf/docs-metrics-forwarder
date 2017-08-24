@@ -1,56 +1,50 @@
 ---
-breadcrumb: Metrics Forwarder for Pivotal Cloud Foundry Documentation
 title: Architecture
 owner: PCF Autoscaler and Scheduler
 ---
 
+This topic describes the architecture and default configuration of Metrics Forwarder for Pivotal Cloud Foundry (PCF).
 
 ***  Architecture Diagram goes here***
 
+## <a id="topology"></a> High Availability Topology
 
-This topic describes the high-level component architecture of the Metrics Forwarder for Pivotal Cloud Foundry (PCF) service. It describes the defaults configuration and other aspects of the service's components and how to manage them.
+In a highly available resource configuration, Metrics Forwarder for PCF uses the following:
 
-## <a id="topology"></a> HA Topology ##
-
-In HA topology, the Metrics Forwarder for PCF service uses the following:
-
-* Three API servers running the metrics forwarder HTTP API server and a Metron Agent.
+* Three API servers, each running the Metrics Forwarder HTTP API server and a Metron Agent.
 
 * A Metric Forwarder Service Broker
 
-If operators wish to reduce the number of VMs used in the deployment the number of Metrics Forwarder API resources can be reduced to 1.
+If operators want to reduce the number of VMs used in the deployment, Metrics Forwarder API resources can be scaled down to 1.
 
-## <a id="rate-limiting"></a> Rate Limiting ##
+## <a id="rate-limiting"></a> Rate Limiting
 
-The Metrics Forwarder allows operators to configure Rate Limiting in order to provide a more reliable service level of Metrics Forwarder and to prevent applications from emitting to many metrics for the Loggregator configuration.
+Metrics Forwarder for PCF allows operators to configure rate limiting. For each app, operators can limit the number of requests and metrics accepted by Metrics Forwarder. This increases the level of the service reliability and prevents apps from overwhelming the Loggregator with high volumes of metrics data.
 
-Rate Limiting allows operators to limit the number of requets that are accepted for each app by the metrics forwarder and to limit the number of metrics accepted.  Each limit, requests and metrics, is limited on a per minute basis.  Rate Limits are applied to each request received by the Metrics Forwarder API and are calculated on a moving 60 second window.  Rate Limits can be conveyed in the response of each request.  Each request contains the following Rate Limit feedback as HTTP Headers: 
+Metrics Forwarder applies rate limits to each request received by the Metrics Forwarder API and calculates them on a per-minute basis. Rate limits can be conveyed in the response of a request. Each request contains the following rate limit feedback as HTTP headers:
 
-```
+<pre class="terminal">
 x-ratelimit-limit 
 x-ratelimit-metrics-limit
 x-ratelimit-metrics-remaining
 x-ratelimit-period 
 x-ratelimit-remaining
 x-ratelimit-retry-after
-```
+</pre>
 
 ## <a id="defaults"></a> Plan and Resource Defaults 
 
 This section describes the defaults that the Metrics Forwarder for PCF tile applies to plans and resource configuration.
 
+### <a id="api-instance">API Instance Resource Configuration
 
+By default, the Metrics Forwarder for PCF tile is configured with three instances of the Metrics Forwarder API. You can decrease the number of instances to 1. In this case, the service will be susceptible to outage if the single API instance experiences failure.
 
-### API Instance Resource Config
+### <a id="loggregator"></a> Loggregator as a Subsystem Dependency
 
-By default the tile is configured with 3 instances of the metrics forwarder api.  If you wish to conserve resources you can decrease the number of instances to as low as 1.  The service will not be HA and will be succeptible to outage should the single api instane experience failure of any kind.
-
-### <a id="loggregator"></a> Loggregator as a subsystem dependency
-
-Metrics Forwarder relies on Loggregator to transport metrics to the firehose.  The Metrics Forwarder does manage its own Metron agents for each of the API instances that are configured (in Resource Config).  These Metron Agents are configured to emit metrics directly to the loggregator components (Dopplers and Traffic Controllers) that are used by the rest of the components in PCF.  To accomodate the load of metrics produced by apps and emitted from the Metrics Forwarder the resources for Doppler Server and Traffice Controller may need to be increased.  Consult the Loggregator documentation for information on properly configuring these resources.
-
+Metrics Forwarder relies on Loggregator to transport metrics to the Firehose. The Metrics Forwarder manages its own Metron agents for each of the API instances that are configured in the Resource Config of the tile. These Metron Agents emit metrics directly to the Loggregator components (Dopplers and Traffic Controllers). To accommodate the load of metrics produced by apps and emitted from the Metrics Forwarder, the resources for Doppler Server and Traffic Controller may need to be increased. Refer to the [Loggregator documentation](https://docs.pivotal.io/pivotalcf/1-11/loggregator/log-ops-guide.html) for information on configuring these resources.
 
 ### <a id="persitence"></a> Metrics Persistence
 
-Metrics that are emitted into the Metrics Forwarder API are not persisted in any way.  They are immediately transformed to a format acceptable to loggregator and then emitted.  To persist metrics that have been emitted into the Metrics Forwarder users can read the metrics directly from the firehose or use any nozzle to consume and persist loggregator data.
+Metrics that are emitted into the Metrics Forwarder API are not persisted. They are immediately transformed to a format accepted by Loggregator and then emitted. To persist metrics that have been emitted into the Metrics Forwarder, you can read the metrics directly from the Firehose or use any nozzle to consume and persist  Loggregator data.
 
