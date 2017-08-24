@@ -3,37 +3,20 @@ title: Using Metrics Forwarder for PCF
 owner: PCF Autoscaler and Scheduler
 ---
 
-<style>
-    .note.warning {
-        background-color: #fdd;
-        border-color: #fbb
-    }
-    .note.warning:before {
-        color: #f99;
-    }
-</style>
+This topic provides instructions for using Metrics Forwarder for Pivotal Cloud Foundry (PCF).
 
-<p class="note warning">
-<strong>IMPORTANT: </strong> 
-The Metrics Forwarder for Pivotal Cloud Foundry (PCF) tile is currently in beta and is intended for evaluation and test purposes only. Do not use this product in a PCF production environment.
-</p>
-
-This topic provides instructions for using Metrics Forwarder for Pivotal Cloud Foundry (PCF). The service enables applications to emit custom metrics into the PCF Firehose.
-
-You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI) tool and an HTTP API (docs link here).
-
-For general information, see [Managing Service Instances with the cf CLI](http://docs.pivotal.io/devguide/services/managing-services.html). 
+You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI) tool and an HTTP API (docs link here). For general information, see [Managing Service Instances with the cf CLI](http://docs.pivotal.io/devguide/services/managing-services.html). 
 
 ## <a id="prereqs"></a>Prerequisites
 
-* A PCF installation with [Metrics Forwarder for PCF](https://network.pivotal.io/products/p-metrics-forwarder) installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances)
+* A PCF deployment with [Metrics Forwarder for PCF](https://network.pivotal.io/products/p-metrics-forwarder) installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances)
 * A [Space Developer](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles) account
 
 ## <a id='create-service'></a>Create and Bind a Service Instance
 
 Every app and service in PCF is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces). This means that an app can use a service only if an instance of the service exists in the same space.
 
-The Metrics Forwarder for PCF service instance can be bound to more than one app.  The number apps bound to a single service instance doesn't have an effect on the service instance.
+The Metrics Forwarder for PCF service instance can be bound to more than one app. The number of apps bound to a single service instance does not affect the service instance.
 
 ### <a id='run-marketplace'></a>Confirm Service Availability
 
@@ -42,15 +25,17 @@ For apps to use a service, the service must be available in the Marketplace. To 
 1. Run `cf marketplace` from the command line.
 1. If the output lists `metrics-forwarder` in the `service` column, Metrics Forwarder for PCF is available. If the service is not available, [install](./installing.html) it.
 
-    <pre class="terminal">
-    $ cf marketplace
-    Getting services from marketplace in org my-org / space my-space as user<span>@</span>example.com...
-    OK
-    service             plans      description
-    [...]
-    metrics-forwarder   unlimited  Custom metrics service
-    [...]
-    </pre>
+See the following example:
+
+<pre class="terminal">
+$ cf marketplace
+Getting services from marketplace in org my-org / space my-space as user<span>@</span>example.com...
+OK
+service             plans      description
+[...]
+metrics-forwarder   unlimited  Custom metrics service
+[...]
+</pre>
 
 ### <a id='create'></a>Create a Service Instance
 
@@ -77,6 +62,8 @@ For an app to use a service, you must bind it to a service instance. Do this aft
 
 To bind an app to a Metrics Forwarder instance, run `cf bind-service APP-NAME SERVICE-INSTANCE-NAME`, replacing `APP-NAME` with the name of the app you want to use the Metrics Forwarder service for and `SERVICE-INSTANCE-NAME` with the name you provided when you ran `cf create-service`.
 
+See the following example:
+
 <pre class="terminal">
 $ cf bind-service my-app my-instance<br>
 Binding service my-instance to my-app in org my-org / space my-space as user<span>@</span>example.com...
@@ -86,16 +73,13 @@ TIP: Use 'cf push' to ensure your env variable changes take effect
 
 ## <a id="emit-metrics"></a>Emitting Metrics
 
-See the following sections to learn about emitting metrics to Metrics Forwarder for PCF.
+The following sections describe how metrics are emitted to Metrics Forwarder for PCF.
 
-### <a id="metric-endpoint"></a>Metrics Forwarder endpoint and credentials
+### <a id="metric-endpoint"></a>Metrics Forwarder Endpoint and Credentials
 
-The Metrics Forwarder endpoint and credentials are required to emit metrics and can be found in the environment variables for any bound app.
-
+The Metrics Forwarder endpoint and credentials are required to emit metrics. You can find this information in the environment variables of your bound app.
 
 <pre class="terminal">
-
-
 $ cf env my-app <br>
 Getting env variables for app my-app in  org my-org / space my-space as user<span>@</span>example.com...
 OK
@@ -111,15 +95,14 @@ System-Provided:
     },[...]
 </pre>
 
+`endpoint` is used as the URI for `POST` requests.  
 
-The endpoint variable is used as the URI to POST metrics to.  
-
-The access_key variable is used as the auth token in the Authorization header of the POST request.
+`access_key` is used as the authentication token in the `Authorization` header of the `POST` request.
 
 
 ## <a id='vcap-services'></a>VCAP_SERVICES
 
-Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is show below:
+Apps running in Cloud Foundry access the bound service instances using the `VCAP_SERVICES` environment variable. See the following example:
 
 <pre><code>
 {
@@ -143,30 +126,23 @@ Applications running in Cloud Foundry gain access to the bound service instances
 }
 </code></pre>
 
-You can search for your service by its `name`, given when creating the service instance, or dynamically via the `tags` or `label` properties. The `credentials` property can be used as follows:
+You can search for your service by its `name`, which is the name you provided when creating the service instance, or dynamically through the `tags` or `label` properties. `access_key` and `endpoint` are used to access the Metrics Forwarder API.
 
-* The `credentials` properties `access_key` and `endpoint` provide access to the Metrics Forwarder API.
+Similar to other PCF services, the `VCAP_SERVICES` environment variable for an app is modified only when the app is bound to a service instance. Users need to `cf unbind-service`, `cf bind-service` and `cf restage` their app in this scenario.
 
-In common with all services in [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF), the `VCAP_SERVICES` environment variable for an application is only modified when the application is bound to a service instance. Users will need to `cf unbind-service`, `cf bind-service` and `cf restage` their app in this scenario.
+### <a id="metrics"></a>Metrics
 
-### <a id="metrics"></a>Metrics 
-
-```
 Gauge
 
-A gauge is a very simple metric type. It is float value. 
-```
+A gauge metric is a float value. 
 
-```
 Counter
 
-A counter is a 64-bit integer used to represent incrementing and decrementing counts.
-```
-The Metrics Forwarder service does not increment or decrement the value of a counter metric.
+A counter metric is a 64-bit integer used to represent incrementing and decrementing counts. The Metrics Forwarder service does not increment or decrement the value of a counter metric.
 
-### <a id="emit-metric"></a>Emit metrics
+### <a id="emit-metric"></a>Emit Metrics
 
-The Metrics Forwarder API accepts metrics emitted to HTTP POST API.  The 
+Metrics Forwarder accepts metrics emitted to its HTTP API using the `POST` method.
 
 ```
 {
@@ -191,8 +167,7 @@ The Metrics Forwarder API accepts metrics emitted to HTTP POST API.  The
 }
 ```
 
-If your the service plan associated to your service instance has rate limiting configured (look at the service information) your requests and metrics will be limited.  On each request to the API you will recieve rate limit feedback in the form of HTTP Headers.  The following HTTP Headers are present on each response from the Metrics Forwarder API.
-
+If the service plan associated with your service instance has rate limiting configured, the number of your requests and metrics is limited. For each request to the Metrics Forwarder API, you receive information about your rate limits in the response of the request. The following HTTP headers are present in every response from the Metrics Forwarder API.
 
 ```
 x-ratelimit-limit →unlimited
@@ -203,12 +178,9 @@ x-ratelimit-remaining →unlimited
 x-ratelimit-retry-after →0
 ```
 
-
 ### <a id="certs"></a>SSL Certificates
 
-The Metrics Forwarder endpoint is routed through the GoRouter and uses the SSL certificate configured on the GoRouter.  If this certificate is a self signed certificate all apps and tools configured to emit metrics to the Metrics Forwarder API will need to be configured to trust the self signed certificates.
-
-
+The Metrics Forwarder endpoint is routed through the GoRouter and uses the SSL certificate configured on the GoRouter. If this certificate is a self-signed certificate, you need to configure all apps and tools emitting metrics to the Metrics Forwarder API to trust the self-signed certificates.
 
 ## <a id="consume-metrics"></a>Consuming Metrics
 
