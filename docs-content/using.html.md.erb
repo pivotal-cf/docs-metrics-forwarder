@@ -225,9 +225,26 @@ Metrics can be read from the firehose using any consumer of the firehose includi
 All metrics emitted are emitted into Loggregator as Value (dropsonde reference) metrics and tag of "type" to indicate whether the metric is a gauge or counter metric type.
 
 ### <a id="consume-firehose"></a>Reading the metrics
-All metrics emitted by apps through the Metrics Forwarder for PCF service will have the following attributes:
+All metrics emitted by apps through the Metrics Forwarder for PCF service will have the following drobsonde envelope attributes:
 
-Job: metrics-forwarder
-Tags: [app_guid, ]
+Dropsonde Envelope Attribute : Metrics Forwarder Metric API data
+job: metrics_forwarder
+origin: metrics-forwarder
+tags: [
+        applicationGuidapp_guid: application.id,
+        applicationInstance: application.instance.id,
+        applicationInstanceIndex: application.instance.index,
+        type: application.metrics.type,
+        {application.metrics.tags.user-tag-key}: {application.metrics.tags.user-tag-value}
+
+      ]
+valueMetric: ValueMetrics{
+                name: application.metrics.name
+                unit: application.metrics.unit
+                value: application.metric.value
+                }
+
+
+
 
 
