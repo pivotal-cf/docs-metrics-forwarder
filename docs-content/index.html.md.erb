@@ -14,15 +14,20 @@ owner: PCF Autoscaler and Scheduler
 </style>
 
 <p class="note warning">
-<strong>IMPORTANT: </strong> 
+<strong>IMPORTANT:</strong> 
 The Metrics Forwarder for Pivotal Cloud Foundry (PCF) tile is currently in beta and is intended for evaluation and test purposes only. Do not use this product in a PCF production environment.
 </p>
 
-Metrics Forwarder for PCF is a service that allows apps to emit custom metrics into Loggregator by transmitting the metrics to an HTTP endpoint.
+This documentation describes Metrics Forwarder for Pivotal Cloud Foundry (PCF).
 
 ## <a id='overview'></a>Overview
 
-Metrics Forwarder for PCF enables developers to do the following:
+Metrics Forwarder for PCF is a service that allows apps to emit custom metrics into [Loggregator](https://docs.pivotal.io/pivotalcf/1-11/loggregator/architecture.html) and consume those metrics from the Loggregator [Firehose](https://docs.pivotal.io/pivotalcf/1-11/loggregator/architecture.html#firehose).
+
+Metrics Forwarder for PCF enables users to do the following:
+
+* Configure apps to emit custom metrics into Loggregator. Metrics Forwarder provides an HTTP API that accepts these user-defined metrics.
+* Read custom metrics from the Loggregator Firehose using a Firehose consumer of their choice, including [community](https://github.com/cloudfoundry/loggregator/blob/develop/docs/community-nozzles.md) and third-party nozzles.
 
 ## <a id="snapshot"></a>Product Snapshot
 
@@ -37,11 +42,11 @@ The following table provides version and version-support information about Metri
     </tr>
     <tr>
         <td>Release date</td>
-        <td>August 30, 2017</td>
+        <td>August 24, 2017</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.10.x</td>
+        <td>v1.11.x</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
@@ -55,5 +60,14 @@ The following table provides version and version-support information about Metri
 
 ## <a id="reqs"></a>Requirements
 
+You must install the following products to start using Metrics Forwarder for PCF:
+
+* PCF Elastic Runtime v1.11
+* PCF Ops Manager v1.11
+* MySQL for PCF v
+
+These products are available on [Pivotal Network](https://network.pivotal.io/). 
+
 ## <a id="limitations"></a>Limitations
 
+The total number of metrics that Metrics Forwarder for PCF can accept depends on the capacity of your Loggregator components.
