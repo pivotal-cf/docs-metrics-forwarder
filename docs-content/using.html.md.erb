@@ -100,7 +100,7 @@ System-Provided:
 `access_key` is used as the authentication token in the `Authorization` header of the `POST` request.
 
 
-## <a id='vcap-services'></a>VCAP_SERVICES
+### <a id='vcap-services'></a>VCAP_SERVICES
 
 Apps running in Cloud Foundry access the bound service instances using the `VCAP_SERVICES` environment variable. See the following example:
 
@@ -128,7 +128,7 @@ Apps running in Cloud Foundry access the bound service instances using the `VCAP
 
 You can search for your service by its `name`, which is the name you provided when creating the service instance, or dynamically through the `tags` or `label` properties. `access_key` and `endpoint` are used to access the Metrics Forwarder API.
 
-Similar to other PCF services, the `VCAP_SERVICES` environment variable for an app is modified only when the app is bound to a service instance. Users need to `cf unbind-service`, `cf bind-service` and `cf restage` their app in this scenario.
+Similar to other PCF services, the `VCAP_SERVICES` environment variable for an app is modified only when the app is bound to a service instance.
 
 ### <a id="metrics"></a>Metrics
 
@@ -186,19 +186,21 @@ The Metrics Forwarder endpoint is routed through the GoRouter and uses the SSL c
 
 See the following sections to learn about consuming metrics that have been emitted to Metrics Forwarder for PCF.
 
-### <a id="firehose-creds"></a>Credentials required
+### <a id="firehose-creds"></a>Credentials
 
-Users must be granted specific UAA scopes to read any data from the firehose.  The minimal scope is doppler.firehose .  More information on this configuration is here (link to loggregator doc)
+Users must have specific UAA scopes to read any data from the Firehose. The minimal scope is `doppler.firehose`. More information on this configuration is here (link to loggregator doc).
 
 ### <a id="consume-firehose"></a>Connecting to the Firehose
 
-Metrics can be read from the firehose using any consumer of the firehose including the cf cli nozzle plugin or other community and 3rd party nozzles.  https://github.com/cloudfoundry/loggregator/blob/develop/docs/community-nozzles.md
+Metrics can be read from the Firehose using any consumer of the Firehose including the cf cli nozzle plugin or other community and third-party nozzles. https://github.com/cloudfoundry/loggregator/blob/develop/docs/community-nozzles.md
 
 All metrics emitted are emitted into Loggregator as Value (dropsonde reference) metrics and tag of "type" to indicate whether the metric is a gauge or counter metric type.
 
-### <a id="consume-firehose"></a>Reading the metrics
-All metrics emitted by apps through the Metrics Forwarder for PCF service will have the following drobsonde envelope attributes:
+### <a id="consume-firehose"></a>Reading Metrics
 
+All metrics emitted by apps through the Metrics Forwarder for PCF service have the following Dropsonde envelope attributes.
+
+```
 Dropsonde Envelope Attribute : Metrics Forwarder Metric API data
 job: metrics_forwarder
 origin: metrics-forwarder
@@ -215,8 +217,4 @@ valueMetric: ValueMetrics{
                 unit: application.metrics.unit
                 value: application.metric.value
                 }
-
-
-
-
-
+```
