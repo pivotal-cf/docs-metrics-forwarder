@@ -18,16 +18,64 @@ This adds the tile to your staging area.
 
 1. Make sure your network and stemcell configuration is complete.
 
-1. Create appropriate Service Plans. See [Configure Metrics Forwarder for PCF](installing.html#configure). 
+1. Create appropriate Service Plans. See [Service Plans](installing.html#configure-plans). 
 
 1. Click **Save**.
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install Metrics Forwarder for PCF tile.
 
-##<a id='configure'></a> Configure Metrics Forwarder for PCF
+## <a id="defaults"></a> Plan and Resource Defaults 
 
-### Service Plans and Rate Limiting
+This section describes the defaults that the Metrics Forwarder for PCF tile applies to plans and resource configuration.
 
-Service plans enable operators to configure the rate limiting settings that apply to metrics emitted to the Metrics Forwarder service. By default, a single service plan is configured with unlimited requests and metrics. For more information, see [Rate Limiting](architecture.html#rate-limiting).
+### <a id="api-instance"></a>API Resources
 
-Determining the capacity of [Loggregator](https://docs.pivotal.io/pivotalcf/1-11/loggregator/log-ops-guide.html) can help you to decide what service plans to configure.
+By default, the Metrics Forwarder for PCF tile uses three instances of the Metrics Forwarder API. You can decrease the number of instances to 1. However, if the single API instance experiences a failure, the service will be susceptible to outage.
+
+### <a id="service-plans"></a>Service Plans
+
+Service plans enable operators to set the number of HTTP requests and metrics that a bound app can send per minute. The default service plan supports unlimited requests and metrics. For more information, see [Rate Limiting](architecture.html#rate-limiting).
+
+Knowing the capacity of your [Loggregator](https://docs.pivotal.io/pivotalcf/1-11/loggregator/log-ops-guide.html) components can help you to determine what service plans to configure.
+
+### <a id="loggregator"></a> Loggregator
+
+Metrics Forwarder for PCF relies on Loggregator to transport metrics to the Firehose. Metrics Forwarder manages its own Metron agent for each of the API instances that are configured in the **Resource Config** section of the tile. These Metron Agents emit metrics directly to the Loggregator components: Dopplers and Traffic Controllers. 
+
+To accommodate the number of metrics produced by apps and emitted from Metrics Forwarder, the resources for Doppler Server and Traffic Controller may need to be increased. Refer to the [Loggregator documentation](https://docs.pivotal.io/pivotalcf/1-11/loggregator/log-ops-guide.html) for information on configuring these resources.
+
+### <a id="persitence"></a> Metrics Persistence
+
+Metrics that are emitted into the Metrics Forwarder API are not persisted. They are immediately converted into a format accepted by Loggregator and then emitted. To persist metrics that have been emitted into Metrics Forwarder, you can read the metrics directly from the Firehose or use a nozzle to consume Loggregator data.
+
+##<a id='configure'></a>Configure Metrics Forwarder for PCF
+
+This section describes how to configure resources and service plans in the Metrics Forwarder for PCF tile.
+
+###<a id='configure-resources'></a>API Resources
+
+You can scale the API resources in the **Resource Config** section of the Metrics Forwarder for PCF tile.
+
+To change the default number of the Metrics Forwarder API instances, perform the following steps:
+
+1. Navigate to the **Resource Config** section of the Metrics Forwarder for PCF tile.
+
+1. In the **Metrics Forwarder API for PCF** field, select the number of instances.
+
+###<a id='configure-plans'></a>Service Plans
+
+You can configure your service plans and rate limits in the **Service Plans** section of the Metrics Forwarder for PCF tile.
+
+To add a new service plan and set rate limits, perform the following steps:
+
+1. Navigate to the **Service Plans** section of the Metrics Forwarder for PCF tile.
+
+1. Click **Add**.
+
+1. Under **Plan name**, enter the name of your service plan.
+
+1. Under **Description**, enter a human-readable description of the service plan.
+
+1. Under **Requests per minute**, enter the number of HTTP requests a bound app is allowed to send per minute. 
+
+1. Under **Metrics per minute**, enter metrics a bound app is allowed to send per minute across requests.
