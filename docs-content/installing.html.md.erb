@@ -18,13 +18,13 @@ This adds the tile to your staging area.
 
 1. Make sure your network and stemcell configuration is complete.
 
-1. Create appropriate Service Plans. See [Service Plans](installing.html#configure-plans). 
+1. Create appropriate Service Plans. See [Service Plans](installing.html#configure-plans).
 
 1. Click **Save**.
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install Metrics Forwarder for PCF tile.
 
-## <a id="defaults"></a> Plan and Resource Defaults 
+## <a id="defaults"></a> Plan and Resource Defaults
 
 This section describes the defaults that the Metrics Forwarder for PCF tile applies to plans and resource configuration.
 
@@ -40,7 +40,7 @@ Knowing the capacity of your [Loggregator](https://docs.pivotal.io/pivotalcf/1-1
 
 ### <a id="loggregator"></a> Loggregator
 
-Metrics Forwarder for PCF relies on Loggregator to transport metrics to the Firehose. Metrics Forwarder manages its own Metron agent for each of the API instances that are configured in the **Resource Config** section of the tile. These Metron Agents emit metrics directly to the Loggregator components: Dopplers and Traffic Controllers. 
+Metrics Forwarder for PCF relies on Loggregator to transport metrics to the Firehose. Metrics Forwarder manages its own Metron agent for each of the API instances that are configured in the **Resource Config** section of the tile. These Metron Agents emit metrics directly to the Loggregator components: Dopplers and Traffic Controllers.
 
 To accommodate the number of metrics produced by apps and emitted from Metrics Forwarder, the resources for Doppler Server and Traffic Controller may need to be increased. Refer to the [Loggregator documentation](https://docs.pivotal.io/pivotalcf/1-11/loggregator/log-ops-guide.html) for information on configuring these resources.
 
@@ -76,6 +76,6 @@ To add a new service plan and set rate limits, perform the following steps:
 
 1. Under **Description**, enter a human-readable description of the service plan.
 
-1. Under **Requests per minute**, enter the number of HTTP requests a bound app is allowed to send per minute. 
+1. Under **Requests per minute**, enter the number of HTTP requests a bound app is allowed to send per minute.
 
 1. Under **Metrics per minute**, enter metrics a bound app is allowed to send per minute across requests.
