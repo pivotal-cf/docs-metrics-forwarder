@@ -1,22 +1,20 @@
 ---
-title: Using Metrics Forwarder for PCF
+title: Creating a Sevice Instance
 owner: PCF Autoscaler and Scheduler
 ---
 
-This topic provides instructions for using Metrics Forwarder for Pivotal Cloud Foundry (PCF).
+This topic explains how to create a Metrics Forwarder for Pivotal Cloud Foundry (PCF) service instance and bind it to your app.
 
-You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI) tool and an HTTP API (docs link here). For general information, see [Managing Service Instances with the cf CLI](http://docs.pivotal.io/devguide/services/managing-services.html). 
+You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI) and an HTTP API. For general information, see [Managing Service Instances with the cf CLI](http://docs.pivotal.io/devguide/services/managing-services.html).
 
 ## <a id="prereqs"></a>Prerequisites
 
 * A PCF deployment with [Metrics Forwarder for PCF](https://network.pivotal.io/products/p-metrics-forwarder) installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances)
 * A [Space Developer](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles) account
 
-## <a id='create-service'></a>Create and Bind a Service Instance
+## <a id='create-service'></a>Create a Service Instance
 
 Every app and service in PCF is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces). This means that an app can use a service only if an instance of the service exists in the same space.
-
-The Metrics Forwarder for PCF service instance can be bound to more than one app. The number of apps bound to a single service instance does not affect the service instance.
 
 ### <a id='run-marketplace'></a>Confirm Service Availability
 
@@ -56,7 +54,9 @@ my-instance   metrics-forwarder  unlimited             create succeeded
 
 You can create only one instance in a space. If you attempt to create more than one instance in a space, you receive an error response.
 
-### <a id="bind"></a>Bind a Service Instance to Your App
+## <a id="bind"></a>Bind a Service Instance to Your App
+
+The Metrics Forwarder for PCF service instance can be bound to more than one app. The number of apps bound to a single service instance does not affect the service instance.
 
 For an app to use a service, you must bind it to a service instance. Do this after you push or re-push the app using `cf push`.
 
