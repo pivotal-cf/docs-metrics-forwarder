@@ -1,0 +1,87 @@
+---
+title: Consuming Metrics from Firehose
+owner: PCF Autoscaler and Scheduler
+---
+
+This topic describes how users can consume their custom app metrics from the Loggregator Firehose.
+
+## <a id="firehose-creds"></a>Credentials
+
+Users must have the `doppler.firehose` scope to read data from the Firehose. See [Scopes](https://docs.pivotal.io/pivotalcf/1-11/concepts/architecture/uaa.html#scopes) for a description of the scopes covered by UAA.
+
+## <a id="consume-firehose"></a>Connecting to the Firehose
+
+You can read metrics from the Firehose using a Firehose consumer of your choice, including [community](https://github.com/cloudfoundry/loggregator/blob/develop/docs/community-nozzles.md) and third-party nozzles. 
+
+## <a id="consume-firehose"></a>Reading Metrics
+
+Metrics Forwarder for PCF sends all metrics to Loggregator as [ValueMetrics](https://github.com/cloudfoundry/dropsonde-protocol/blob/master/events/README.md#events.ValueMetric). It also uses the `tags` attribute to indicate the type of the metric: gauge or counter.
+
+All metrics emitted by apps through Metrics Forwarder for PCF have the following [Dropsonde envelope attributes](https://github.com/cloudfoundry/dropsonde-protocol/blob/master/events/README.md#events.Envelope).
+
+<table class="nice">
+    <th>Attribute</th>
+    <th>API data</th>
+    <tr>
+        <td><code>job</code></td>
+        <td><code>metrics_forwarder</code></td>
+    </tr>
+    <tr>
+        <td><code>origin</code></td>
+        <td><code>metrics-forwarder</code></td>
+    </tr>
+    <tr>
+        <td><code>tags</code></td>
+        <td>Key and value pairs to include additional identifying information</td>
+    </tr>
+    <tr>
+        <td><code>valueMetric</code></td>
+        <td>Key and value pairs that include the name, value, and unit of the metric</td>
+    </tr>
+</table>
+
+The table below lists the key and value pairs of the `tags` attribute.
+
+<table class="nice">
+    <th>Key</th>
+    <th>API data</th>
+    <tr>
+        <td><code>applicationGuid</code></td>
+        <td><code>application.id</code></td>
+    </tr>
+    <tr>
+        <td><code>applicationInstance</code></td>
+        <td><code>application.instance.id</code></td>
+    </tr>
+    <tr>
+        <td><code>applicationInstanceIndex</code></td>
+        <td><code>application.instance.index</code></td>
+    </tr>
+    <tr>
+        <td><code>type</code></td>
+        <td><code>application.metrics.type</code></td>
+    </tr>
+    <tr>
+        <td><code>{application.metrics.tags.user-tag-key}</code></td>
+        <td><code>{application.metrics.tags.user-tag-value}</code></td>
+    </tr>
+</table>
+    
+The table below lists the key and value pairs of the `valueMetric` attribute.
+
+<table class="nice">
+    <th>Key</th>
+    <th>API data</th>
+    <tr>
+        <td><code>name</code></td>
+        <td><code>application.metrics.name</code></td>
+    </tr>
+    <tr>
+        <td><code>unit</code></td>
+        <td><code>application.metrics.unit</code></td>
+    </tr>
+    <tr>
+        <td><code>value</code></td>
+        <td><code>application.metric.value</code></td>
+    </tr>
+</table>
