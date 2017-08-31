@@ -22,7 +22,7 @@ This adds the tile to your staging area.
 
 1. Click **Save**.
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install Metrics Forwarder for PCF tile.
+1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install the Metrics Forwarder for PCF tile.
 
 ## <a id="defaults"></a> Plan and Resource Defaults
 
@@ -36,15 +36,15 @@ By default, the Metrics Forwarder for PCF tile uses three instances of the Metri
 
 Service plans enable operators to set the number of HTTP requests and metrics that a bound app can send per minute. The default service plan supports unlimited requests and metrics. For more information, see [Rate Limiting](architecture.html#rate-limiting).
 
-Knowing the capacity of your [Loggregator](https://docs.pivotal.io/pivotalcf/1-11/loggregator/log-ops-guide.html) components can help you to determine what service plans to configure.
+Knowing the capacity of your Loggregator components can help you to determine what service plans to configure.
 
 ### <a id="loggregator"></a> Loggregator
 
-Metrics Forwarder for PCF relies on Loggregator to transport metrics to the Firehose. Metrics Forwarder manages its own Metron agent for each of the API instances that are configured in the **Resource Config** section of the tile. These Metron Agents emit metrics directly to the Loggregator components: Dopplers and Traffic Controllers.
+Metrics Forwarder for PCF relies on Loggregator to transport metrics to the Firehose. Metrics Forwarder manages its own Metron agent for each of the API instances that are specified in the **Resource Config** section of the tile. These Metron Agents emit metrics directly to the Loggregator components: Dopplers and Traffic Controllers.
 
-To accommodate the number of metrics produced by apps and emitted from Metrics Forwarder, the resources for Doppler Server and Traffic Controller may need to be increased. Refer to the [Loggregator documentation](https://docs.pivotal.io/pivotalcf/1-11/loggregator/log-ops-guide.html) for information on configuring these resources.
+To accommodate the number of metrics produced by apps and emitted from Metrics Forwarder, you may need to increase Doppler Server and Traffic Controller resources. Refer to the [Loggregator documentation](https://docs.pivotal.io/pivotalcf/1-11/loggregator/log-ops-guide.html) for information on configuring these resources.
 
-### <a id="persitence"></a> Metrics Persistence
+### <a id="persitence"></a> Data Persistence
 
 Metrics that are emitted to the Metrics Forwarder API are not persisted. They are immediately converted into a format accepted by Loggregator and then emitted. To persist metrics that have been emitted to Metrics Forwarder, you can read the metrics directly from the Firehose or use a nozzle to consume Loggregator data.
 
@@ -58,7 +58,7 @@ You can scale the API resources in the **Resource Config** section of the Metric
 
 To change the default number of the Metrics Forwarder API instances, perform the following steps:
 
-1. Navigate to the **Resource Config** section of the Metrics Forwarder for PCF tile.
+1. In the Ops Manager, navigate to the **Resource Config** section of the Metrics Forwarder for PCF tile.
 
 1. In the **Metrics Forwarder API for PCF** field, select the number of instances.
 
@@ -68,7 +68,7 @@ You can configure your service plans and rate limits in the **Service Plans** se
 
 To add a new service plan and set rate limits, perform the following steps:
 
-1. Navigate to the **Service Plans** section of the Metrics Forwarder for PCF tile.
+1. In the Ops Manager, navigate to the **Service Plans** section of the Metrics Forwarder for PCF tile.
 
 1. Click **Add**.
 
@@ -76,6 +76,6 @@ To add a new service plan and set rate limits, perform the following steps:
 
 1. Under **Description**, enter a human-readable description of the service plan.
 
-1. Under **Requests per minute**, enter the number of HTTP requests a bound app is allowed to send per minute.
+1. Under **Requests per minute**, enter the number of HTTP requests that a bound app is allowed to send per minute.
 
-1. Under **Metrics per minute**, enter metrics a bound app is allowed to send per minute across requests.
+1. Under **Metrics per minute**, enter the number of metrics that a bound app is allowed to send per minute across requests.
