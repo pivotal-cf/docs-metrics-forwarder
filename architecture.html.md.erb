@@ -13,7 +13,7 @@ In a highly available resource configuration, Metrics Forwarder for PCF uses the
 
 * A Metric Forwarder Service Broker
 
-If you want to reduce the number of VMs used in the deployment, you can scale down Metrics Forwarder API resources to 1.
+If you want to reduce the number of VMs used in the deployment, you can scale down the Metrics Forwarder API resources to 1.
 
 ## <a id="metrics"></a>Metric Types
 
@@ -21,13 +21,13 @@ Metrics Forwarder for PCF supports two types of metrics:
 
 * **Gauge**. A gauge metric is a float value. 
 
-* **Counter**. A counter metric is a 64-bit integer used to represent incrementing and decrementing counts. The Metrics Forwarder service does not increment or decrement the value of a counter metric.
+* **Counter**. A counter metric is a 64-bit integer used to represent incrementing and decrementing counts. Metrics Forwarder does not increment or decrement the value of a counter metric.
 
 ## <a id="rate-limiting"></a>Rate Limiting
 
-Metrics Forwarder for PCF enables operators to configure rate limits. You can set the number of HTTP requests and metrics that a bound app is allowed to send to Metrics Forwarder per minute. This increases the level of the service reliability and prevents apps from overwhelming Loggregator with high volumes of metrics data.
+Metrics Forwarder for PCF enables operators to configure rate limits. You can set the number of HTTP requests and metrics that a bound app is allowed to send to Metrics Forwarder per minute. This increases the level of service reliability and prevents apps from overwhelming Loggregator with high volumes of metrics data.
 
-Metrics Forwarder for PCF applies rate limits to each request received by the Metrics Forwarder API. The following HTTP headers are present in every response from the Metrics Forwarder API.
+Metrics Forwarder for PCF applies rate limits to all requests received by the Metrics Forwarder API. The following HTTP headers are present in each response from the Metrics Forwarder API.
 
 <pre class="terminal">
 x-ratelimit-limit 
