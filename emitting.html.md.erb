@@ -72,16 +72,7 @@ Metrics Forwarder accepts metrics emitted to its HTTP API using the `POST` metho
 }
 ```
 
-For each request to the Metrics Forwarder API, you receive information about your [rate limits](architecture.html#rate-limiting) in the response of the request. The following example applies to the default Unlimited plan.
-
-```
-x-ratelimit-limit →unlimited
-x-ratelimit-metrics-limit →unlimited
-x-ratelimit-metrics-remaining →unlimited
-x-ratelimit-period →60
-x-ratelimit-remaining →unlimited
-x-ratelimit-retry-after →0
-```
+For each request to the Metrics Forwarder API, you receive information about your [rate limits](architecture.html#rate-limiting) in the response of the request.
 
 ### <a id='frameworks'></a>Frameworks and Libraries
 
