@@ -19,9 +19,13 @@ If you want to reduce the number of VMs used in the deployment, you can scale do
 
 Metrics Forwarder for PCF supports two types of metrics:
 
-* **Gauge**. A gauge metric is a 64-bit float value. 
+* **Gauge**. A gauge metric is a 64-bit floating-point number used to represent a value at a point in time.
 
-* **Counter**. A counter metric is a 64-bit integer used to represent incrementing and decrementing counts. Metrics Forwarder does not increment or decrement the value of a counter metric.
+* **Counter**. A counter metric is a 64-bit integer used to represent count values. Metrics Forwarder does not increment or decrement the value of a counter metric.
+
+## <a id="persitence"></a> Data Persistence
+
+Metrics that are emitted to the Metrics Forwarder API are not persisted. They are immediately converted into a format accepted by Loggregator and then emitted. To persist metrics that have been emitted to Metrics Forwarder, you can read the metrics directly from the Firehose or use a nozzle to consume Loggregator data.
 
 ## <a id="rate-limiting"></a>Rate Limiting
 
@@ -33,27 +37,27 @@ Metrics Forwarder for PCF applies rate limits to all requests received by the Me
     <th>HTTP Header</th>
     <th>Description</th>
     <tr>
-        <td><code>x-ratelimit-limit</code></td>
-        <td>Total number of HTTP requests that a bound app is allowed to send per minute. See <code>x-ratelimit-period</code>.</td>
+        <td>x&#8209;ratelimit&#8209;limit</td>
+        <td>Total number of HTTP requests that a bound app is allowed to send per minute. See <em>x&#8209;ratelimit&#8209;period</em>.</td>
     </tr>
     <tr>
-        <td><code>x-ratelimit-metrics-limit</code></td>
-        <td>Total number of metrics that a bound app is allowed to send per minute. See <code>x-ratelimit-period</code>.</td>
+        <td>x&#8209;ratelimit&#8209;metrics&#8209;limit</td>
+        <td>Total number of metrics that a bound app is allowed to send per minute. See <em>x&#8209;ratelimit&#8209;period</em>.</td>
     </tr>
     <tr>
-        <td><code>x-ratelimit-metrics-remaining</code></td>
-        <td>Remaining number of metrics that a bound app can send during the current 60-second interval. See <code>x-ratelimit-retry-after</code>.</td>
+        <td>x&#8209;ratelimit&#8209;metrics&#8209;remaining</td>
+        <td>Remaining number of metrics that a bound app can send during the current 60-second interval. See <em>x&#8209;ratelimit&#8209;retry&#8209;after</em>.</td>
     </tr>
     <tr>
-        <td><code>x-ratelimit-period</code></td>
+        <td>x&#8209;ratelimit&#8209;period</td>
         <td>60-second interval during which all limits are applied.</td>
     </tr>
     <tr>
-        <td><code>x-ratelimit-remaining</code></td>
-        <td>Remaining number of HTTP requests that a bound app can send during the current 60-second interval. See <code>x-ratelimit-retry-after</code>.</td>
+        <td>x&#8209;ratelimit&#8209;remaining</td>
+        <td>Remaining number of HTTP requests that a bound app can send during the current 60-second interval. See <em>x&#8209;ratelimit&#8209;retry&#8209;after</em>.</td>
     </tr>
     <tr>
-        <td><code>x-ratelimit-retry-after</code></td>
+        <td>x&#8209;ratelimit&#8209;retry&#8209;after</td>
         <td>Number of seconds remaining until the current one-minute interval ends.</td>
     </tr>
 </table>
@@ -61,10 +65,10 @@ Metrics Forwarder for PCF applies rate limits to all requests received by the Me
 The following example applies to the default Unlimited plan.
 
 ```
-x-ratelimit-limit →unlimited
-x-ratelimit-metrics-limit →unlimited
-x-ratelimit-metrics-remaining →unlimited
-x-ratelimit-period →60
-x-ratelimit-remaining →unlimited
-x-ratelimit-retry-after →0
+x-ratelimit-limit: unlimited
+x-ratelimit-metrics-limit: unlimited
+x-ratelimit-metrics-remaining: unlimited
+x-ratelimit-period: 60
+x-ratelimit-remaining: unlimited
+x-ratelimit-retry-after: 0
 ```
