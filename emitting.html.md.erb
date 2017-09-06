@@ -23,7 +23,7 @@ System-Provided:
    {
     "credentials": {
      "access_key": "YOUR-ACCESS-KEY",
-     "endpoint": "https://metrics-forwarder.SYSTEM-DOMAIN/v1/metrics"
+     "endpoint": "https://METRICS-FORWARDER-DOMAIN/v1/metrics"
     },
     "label": "metrics-forwarder",
     "name": "test-metrics-forwarder",
@@ -47,16 +47,16 @@ You can search for your service by its `name`, which is the name you provided wh
 
 ## <a id="emit-metric"></a>Emitting Metrics
 
-Metrics Forwarder accepts metrics emitted to its HTTP API using the `POST` method. See the following example:
+Metrics Forwarder accepts metrics emitted to its [HTTP API](http://docs.pivotal.io/metrics-forwarder/api/) using the `POST` method. See the following example:
 
 ```
 {
     "applications": [
     {
-        "id": "APP-ID",
+        "id": "YOUR-APP-ID",
         "instances": [
         {
-            "id": "INSTANCE-ID",
+            "id": "YOUR-INSTANCE-ID",
             "index": "0",
             "metrics": [
             {
@@ -65,7 +65,7 @@ Metrics Forwarder accepts metrics emitted to its HTTP API using the `POST` metho
                 "value": 0,
                 "timestamp": 1094817600000,
                 "unit": "number",
-                "tags": { "a-tag":"a", "b-tag":"b" }
+                "tags": { "a-tag": "a", "b-tag": "b" }
             }]
         }]
     }]

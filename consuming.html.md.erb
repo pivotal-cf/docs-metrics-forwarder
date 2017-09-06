@@ -22,66 +22,83 @@ All metrics emitted by apps through Metrics Forwarder for PCF have the following
 <table class="nice">
     <th>Attribute</th>
     <th>API data</th>
+    <th>Description</th>
     <tr>
         <td><code>job</code></td>
         <td><code>metrics_forwarder</code></td>
+        <td>Name of the Metrics Forwarder job.</td>
     </tr>
     <tr>
         <td><code>origin</code></td>
         <td><code>metrics-forwarder</code></td>
+        <td>Origin of Metrics Forwarder.</td>
     </tr>
     <tr>
         <td><code>tags</code></td>
-        <td>Key and value pairs to include additional identifying information</td>
+        <td>See the <code>tags</code> table below.</td>
+        <td>Metrics Forwarder-provided and user-defined key and value pairs to include additional identifying information.</td>
     </tr>
     <tr>
         <td><code>valueMetric</code></td>
-        <td>Key and value pairs that include the name, value, and unit of the metric</td>
+        <td>See the <code>valueMetric</code> table below.</td>
+        <td>Key and value pairs that include the name, value, and unit of the metric. The values are emitted to the API in the <code>metrics</code> entity of the JSON body.</td>
     </tr>
 </table>
 
-The table below lists the key and value pairs of the `tags` attribute.
+The table below lists the key and value pairs provided in the `tags` attribute of the above Dropsonde envelope.
 
 <table class="nice">
     <th>Key</th>
     <th>API data</th>
+    <th>Description</th>
     <tr>
         <td><code>applicationGuid</code></td>
-        <td><code>application.id</code></td>
+        <td><code>applications.id</code></td>
+        <td>App ID emitted to the API in the <code>applications</code> entity of the JSON body.</td>
     </tr>
     <tr>
         <td><code>applicationInstance</code></td>
-        <td><code>application.instance.id</code></td>
+        <td><code>applications.instances.id</code></td>
+        <td>Instance ID emitted to the API in the <code>instances</code> entity of the JSON body.</td>
     </tr>
     <tr>
         <td><code>applicationInstanceIndex</code></td>
-        <td><code>application.instance.index</code></td>
+        <td><code>applications.instances.index</code></td>
+        <td>Instance index emitted to the API in the <code>instances</code> entity of the JSON body.</td>
     </tr>
     <tr>
         <td><code>type</code></td>
-        <td><code>application.metrics.type</code></td>
+        <td><code>applications.instances.metrics.type</code></td>
+        <td>Metric type emitted to the API in the <code>metrics</code> entity of the JSON body.</td>
     </tr>
     <tr>
-        <td><code>{application.metrics.tags.user-tag-key}</code></td>
-        <td><code>{application.metrics.tags.user-tag-value}</code></td>
+        <td>User-defined tags</code></td>
+        <td><code>applications.instances.metrics.tags</code></td>
+        <td>User-defined <code>tags</code> emitted to the API in the <code>metrics</code> entity of the JSON body.</td>
     </tr>
 </table>
     
-The table below lists the key and value pairs of the `valueMetric` attribute.
+The table below lists the key and value pairs provided in the `valueMetric` attribute of the above Dropsonde envelope.
 
 <table class="nice">
     <th>Key</th>
     <th>API data</th>
+    <th>Description</th>
     <tr>
         <td><code>name</code></td>
-        <td><code>application.metrics.name</code></td>
+        <td><code>applications.instances.metrics.name</code></td>
+        <td>Metric name emitted to the API in the <code>metrics</code> entity of the JSON body.</td>
     </tr>
     <tr>
         <td><code>unit</code></td>
-        <td><code>application.metrics.unit</code></td>
+        <td><code>applications.instances.metrics.unit</code></td>
+        <td>Metric unit emitted to the API in the <code>metrics</code> entity of the JSON body.</td>
     </tr>
     <tr>
         <td><code>value</code></td>
-        <td><code>application.metric.value</code></td>
+        <td><code>applications.instances.metrics.value</code></td>
+        <td>Metric value emitted to the API in the <code>metrics</code> entity of the JSON body.</td>
     </tr>
 </table>
+
+For more information about the Metrics Forwarder API, see [its documentation](http://docs.pivotal.io/metrics-forwarder/api/).
