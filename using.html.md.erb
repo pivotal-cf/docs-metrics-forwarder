@@ -3,9 +3,7 @@ title: Creating a Sevice Instance
 owner: PCF Autoscaler and Scheduler
 ---
 
-This topic explains how to create a Metrics Forwarder for Pivotal Cloud Foundry (PCF) service instance and bind it to your app.
-
-You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI) and an HTTP API. For general information, see [Managing Service Instances with the cf CLI](http://docs.pivotal.io/devguide/services/managing-services.html).
+This topic explains how to create a Metrics Forwarder for Pivotal Cloud Foundry (PCF) service instance and bind it to your app. For general information, see [Managing Service Instances with the cf CLI](http://docs.pivotal.io/devguide/services/managing-services.html).
 
 ## <a id="prereqs"></a>Prerequisites
 
@@ -30,9 +28,8 @@ $ cf marketplace
 Getting services from marketplace in org my-org / space my-space as user<span>@</span>example.com...
 OK
 service             plans      description
-[...]
+
 metrics-forwarder   unlimited  Custom metrics service
-[...]
 </pre>
 
 ### <a id='create'></a>Create a Service Instance
@@ -56,9 +53,7 @@ You can create only one instance in a space. If you attempt to create more than 
 
 ## <a id="bind"></a>Bind a Service Instance to Your App
 
-The Metrics Forwarder for PCF service instance can be bound to more than one app. The number of apps bound to a single service instance does not affect the service instance.
-
-For an app to use a service, you must bind it to a service instance. Do this after you push or re-push the app using `cf push`.
+For an app to use a service, you must bind it to a service instance. Do this after you push or re-push the app using `cf push`. You can bind the Metrics Forwarder for PCF service instance to more than one app. The number of apps bound to a single service instance does not affect the service instance.
 
 To bind an app to a Metrics Forwarder instance, run `cf bind-service APP-NAME SERVICE-INSTANCE-NAME`, replacing `APP-NAME` with the name of the app you want to use the Metrics Forwarder service for and `SERVICE-INSTANCE-NAME` with the name you provided when you ran `cf create-service`.
 
