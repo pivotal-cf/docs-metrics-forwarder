@@ -15,13 +15,13 @@ You can read metrics from the Firehose using a Firehose consumer of your choice,
 
 ## <a id="consume-firehose"></a>Reading Metrics
 
-Metrics Forwarder for PCF sends all metrics to Loggregator as [ValueMetrics](https://github.com/cloudfoundry/dropsonde-protocol/blob/master/events/README.md#events.ValueMetric). It also uses the `tags` attribute to indicate the type of the metric: gauge or counter.
+Metrics Forwarder for PCF sends all metrics to Loggregator as [ValueMetrics](https://github.com/cloudfoundry/dropsonde-protocol/blob/master/events/README.md#events.ValueMetric). It also specifies the type of the metric: gauge or counter.
 
 All metrics emitted by apps through Metrics Forwarder for PCF have the following [Dropsonde envelope attributes](https://github.com/cloudfoundry/dropsonde-protocol/blob/master/events/README.md#events.Envelope).
 
 <table class="nice">
     <th>Attribute</th>
-    <th>API data</th>
+    <th>Metrics Forwarder API Data</th>
     <th>Description</th>
     <tr>
         <td><code>job</code></td>
@@ -49,7 +49,7 @@ The table below lists the key and value pairs provided in the `tags` attribute o
 
 <table class="nice">
     <th>Key</th>
-    <th>API data</th>
+    <th>Metrics Forwarder API Data</th>
     <th>Description</th>
     <tr>
         <td><code>applicationGuid</code></td>
@@ -82,7 +82,7 @@ The table below lists the key and value pairs provided in the `valueMetric` attr
 
 <table class="nice">
     <th>Key</th>
-    <th>API data</th>
+    <th>Metrics Forwarder API Data</th>
     <th>Description</th>
     <tr>
         <td><code>name</code></td>
