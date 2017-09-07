@@ -3,7 +3,7 @@ title: Emitting Metrics to Metrics Forwarder for PCF
 owner: PCF Autoscaler and Scheduler
 ---
 
-This topic describes how custom app metrics are emitted to Metrics Forwarder for Pivotal Cloud Foundry (PCF).
+This topic describes how to emit custom app metrics to Metrics Forwarder for Pivotal Cloud Foundry (PCF).
 
 ##<a id="metric-endpoint"></a>Accessing the Endpoint and Credentials
 
@@ -40,10 +40,10 @@ System-Provided:
 
 In the example above, note the following properties:
 
-* `endpoint` is the URI for `POST` requests to the Metrics Forwarder API.
 * `access_key` is the authentication token used in the `Authorization` header of the `POST` request to the Metrics Forwarder API.
+* `endpoint` is the URI for `POST` requests to the Metrics Forwarder API.
 
-You can search for your service by its `name`, which is the name you provided when creating the service instance, or dynamically through the `tags` or `label` properties. Similar to other PCF services, the `VCAP_SERVICES` environment variable for an app is modified only when the app is bound to a service instance.
+You can search for your service by its `name`, which is the name you provided when [creating the service instance](using.html#create-service), or dynamically through the `tags` or `label` properties. Similar to other PCF services, the `VCAP_SERVICES` environment variable for an app is modified only when the app is bound to a service instance.
 
 ## <a id="emit-metric"></a>Emitting Metrics
 
