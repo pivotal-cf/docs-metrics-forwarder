@@ -7,7 +7,7 @@ This topic describes how to emit custom app metrics to Metrics Forwarder for Piv
 
 ##<a id="metric-endpoint"></a>Accessing the Endpoint and Credentials
 
-To use Metrics Forwarder for PCF, you need to know its endpoint and credentials. You can find this information in the environment variables of a bound app.
+To use Metrics Forwarder for PCF, you must know its endpoint and credentials. You can find this information in the environment variables of a bound app.
 
 Apps running on Cloud Foundry access their bound service instances using the `VCAP_SERVICES` environment variable. See the following example:
 
@@ -98,4 +98,4 @@ You can use a [Go library](https://github.com/pivotal-cf/go-metrics-pcf) to expo
 
 ## <a id="certs"></a>SSL Certificates
 
-The Metrics Forwarder API endpoint uses the SSL certificate configured on the GoRouter. If this certificate is a self-signed certificate, you need to configure all apps and tools emitting metrics to the Metrics Forwarder API to trust the self-signed certificates.
+The Metrics Forwarder API endpoint uses the SSL certificate configured on the Gorouter. If this certificate is a self-signed certificate, you must configure all apps and tools emitting metrics to the Metrics Forwarder API to trust the self-signed certificates.
