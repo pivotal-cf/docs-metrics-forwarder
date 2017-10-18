@@ -34,8 +34,10 @@ Metrics Forwarder for PCF enables operators to configure rate limits. You can se
 Metrics Forwarder for PCF applies rate limits to all requests received by the Metrics Forwarder API. The following HTTP headers are present in each response from the Metrics Forwarder API.
 
 <table class="nice">
-    <th>HTTP Header</th>
-    <th>Description</th>
+    <tr>
+      <th>HTTP Header</th>
+      <th>Description</th>
+    </tr>
     <tr>
         <td>x&#8209;ratelimit&#8209;limit</td>
         <td>Total number of HTTP requests that a bound app is allowed to send per minute. See <em>x&#8209;ratelimit&#8209;period</em>.</td>
