@@ -19,4 +19,4 @@ This topic contains release notes for Metrics Forwarder for Pivotal Cloud Foundr
 
 * Service Broker is not HA.
 * Rate limiting in an HA configuration (default) is susceptible to inaccuracy due to load balancing across API instances.
-* If you make the system domain in the `system` org private, Metrics Forwarder for PCF does not run since it is a Cloud Foundry app pushed by a BOSH errand. Metrics Forwarder for PCF fails to push apps needed for smoke tests without a public system domain.
+* If you make the system domain in the `system` org private, Metrics Forwarder for PCF fails to push apps needed for its smoke tests. 
