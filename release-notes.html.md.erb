@@ -11,12 +11,33 @@ This topic contains release notes for Metrics Forwarder for Pivotal Cloud Foundr
 
 ### Features
 
-* Custom app metrics HTTP API.
-* Metric emission rate limiting.
-* HA Metrics Forwarder API with configurable capacity.
+Changes in this release:
+
 * Includes support for Stemcell 3445.
 
 ### Known Issues
+
+This release has the following issues:
+
+* Service Broker is not HA.
+* Rate limiting in an HA configuration (default) is susceptible to inaccuracy due to load balancing across API instances.
+* If you make the system domain in the `system` org private, Metrics Forwarder for PCF fails to push apps needed for its smoke tests.
+
+## <a id="1-11"></a>v1.11.0
+
+**Release Date:** September 20, 2017
+
+### Features
+
+New features and changes in this release: 
+
+ * Custom app metrics HTTP API.
+ * Metric emission rate limiting.
+ * HA Metrics Forwarder API with configurable capacity.
+
+### Known Issues
+
+This release has the following issues:
 
 * Service Broker is not HA.
 * Rate limiting in an HA configuration (default) is susceptible to inaccuracy due to load balancing across API instances.
