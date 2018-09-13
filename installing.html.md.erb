@@ -5,8 +5,25 @@ owner: PCF Autoscaler and Scheduler
 
 This topic describes how to install and configure Metrics Forwarder for Pivotal Cloud Foundry (PCF).
 
+## <a id="update-addons"></a>Update Add-ons to Run with Xenial Stemcell
+
+Metrics Forwarder for PCF v1.11.3 and later requires a Xenial stemcell.
+If you are using any of the following BOSH add-ons with your PCF deployment,
+you must update the add-on definition to include the Xenial stemcell before you deploy Metrics Forwarder for PCF v1.11.3:
+
++ File Integrity Monitoring for PCF Add-on.
+  For update instructions,
+  see [Updating FIM Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-fim/updating-for-xenial.html).
++ ClamAV for PCF Add-on.
+  For update instructions,
+  see [Updating ClamAV Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-antivirus/updating-for-xenial.html).
++ IPsec for PCF Add-on.
+  For update instructions,
+  see [Updating IPsec Add-on for PCF to Run with Xenial Stemcells](https://docs.pivotal.io/addon-ipsec/updating-for-xenial.html).
 
 ## <a id='install'></a> Install Metrics Forwarder for PCF
+
+<p class="note"><strong>Note:</strong> Before using Metrics Forwarder for PCF v1.11.3 and later, you must update any BOSH add-ons to support Xenial stemcells. See <a href="#update-addons">Update Add-ons to Run with Xenial Stemcell</a> above.</p>
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-metrics-forwarder).
 
@@ -17,7 +34,10 @@ This adds the tile to your staging area.
 
 1. Click the newly added **Metrics Forwarder for PCF** tile.
 
-1. Make sure your network and stemcell configuration is complete.
+1. Make sure your network and stemcell configuration is complete. For instructions, see [Importing and Managing Stemcells](opsguide/managing-stemcells.html).
+
+	<p class="note"><strong>Note:</strong> Metrics Forwarder for PCF v1.11.3 and later requires a Xenial stemcell.
+	To download the Xenial stemcell from Pivotal Network, click <a href="https://network.pivotal.io/products/stemcells-ubuntu-xenial">Stemcells for PCF (Ubuntu Xenial)</a></p>
 
 1. Create appropriate Service Plans. See [Service Plans](installing.html#configure-plans).
 
