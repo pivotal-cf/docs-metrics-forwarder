@@ -5,18 +5,18 @@ owner: PCF Autoscaler and Scheduler
 
 This documentation describes Metrics Forwarder for PCF.
 
-<p class='note warning'><b>Warning: </b>Metrics Forwarder is not supported for Pivotal Application Service (PAS) v2.5 and later. To emit custom metrics on PAS v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see <a href="https://docs.pivotal.io/pivotalcf/metric-registrar/index.html">Configuring the Metric Registrar</a>.</p>
+<p class='note warning'><b>Warning: </b>Metrics Forwarder is not supported for Pivotal Application Service (PAS) v2.5 and later. To emit custom metrics on PAS v2.5 or later, use the Metric Registrar. For more information about enabling and configuring the Metric Registrar, see <a href="https://docs.pivotal.io/application-service/metric-registrar/index.html">Using Metric Registrar</a> in the Tanzu Application Service for VMs product documentation.</p>
 
 ## <a id='overview'></a>Overview
 
-Metrics Forwarder for PCF is a service that allows apps to emit custom metrics to [Loggregator](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html) and consume those metrics from the Loggregator [Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose). 
+Metrics Forwarder for PCF is a service that allows apps to emit custom metrics to [Loggregator](https://docs.pivotal.io/application-service/loggregator/architecture.html) and consume those metrics from the Loggregator [Firehose](https://docs.pivotal.io/application-service/3-0/loggregator/architecture.html#firehose). 
 
-You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI), [Apps Manager](https://docs.pivotal.io/pivotalcf/console/manage-apps.html), and an [HTTP API](http://docs.pivotal.io/metrics-forwarder/api/).
+You can interact with the service through the Cloud Foundry Command Line Interface (cf CLI), [Apps Manager](https://docs.pivotal.io/application-service/console/index.html), and an [HTTP API](https://docs.pivotal.io/metrics-forwarder/api/).
 
 Metrics Forwarder for PCF enables users to do the following:
 
 * Configure apps to emit custom metrics to Loggregator.
-* Read custom metrics from the Loggregator Firehose using a Firehose consumer of their choice, including [community](https://github.com/cloudfoundry/loggregator-release/blob/develop/docs/community-nozzles.md) and third-party nozzles.
+* Read custom metrics from the Loggregator Firehose using a Firehose consumer of their choice, including [community](https://github.com/cloudfoundry/loggregator-release/blob/main/docs/community-nozzles.md) and third-party nozzles.
 
 ## <a id="snapshot"></a>Product Snapshot
 
